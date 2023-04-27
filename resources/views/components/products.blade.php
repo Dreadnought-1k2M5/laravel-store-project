@@ -5,8 +5,9 @@
         <div class="shadow-md h-4/5 w-5/6 sm:h-96 sm:w-64 m-2">
             <img src="{{asset('images/Product-inside.png')}}" alt="">
             <div class="p-3">
-                <h1 class="font-medium text-xl">{{$item}}</h1>
-                <p>price: P</p>
+                <h1 class="font-medium text-xl">{{$item->product_name}}</h1>
+                <p>price: {{$item->price}}</p>
+                <p class="text-xs">{{$item->product_description}}</p>
             </div>
 
         </div>

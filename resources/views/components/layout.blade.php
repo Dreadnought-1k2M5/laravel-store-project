@@ -15,37 +15,57 @@
                     </div>
                 </form>  
             </div>
-            <div class="basis-3/12 relative">
-                <nav class="flex sm:flex-row-reverse">
-                    <button id="signupBtnId" class="ml-5 px-5 text-red-400 ">Sign up</button>
-                    <button id="loginBtnId" class="text-white ml-5 hover:text-red-400 rounded-lg h-14 w-12">Log in</button>   
-                </nav>
+            <div class="basis-3/12 relative  text-white">
+                @auth
+                    <nav class="flex sm:flex-row-reverse">
+                        <div>
+                            <form method="POST" action='/logout'>
+                                @csrf
+                                <button type="submit">Logout</button>
+                            </form>
+                        </div>
 
-                <div id="loginFormId" class="login absolute bg-sky-800 md:w-80 md:h-64 top-17 right-20 rounded-md shadow-lg">
-                    <form class="bg-white shadow-lg rounded px-8 pt-6 pb-8">
-                        <div class="mb-4">
-                          <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-                            Username
-                          </label>
-                          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text">
+
+                        <div class="font-light mr-5">
+                            Welcome <span class="font-semibold">{{auth()->user()->name}}</span>
                         </div>
-                        <div class="mb-6">
-                          <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-                            Password
-                          </label>
-                          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password">
-                          
-                        </div>
-                        <div class="flex items-center justify-between">
-                          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-                            Sign In
-                          </button>
-                          <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-                            Forgot Password?
-                          </a>
-                        </div>
-                      </form>
-                </div>
+
+                    </nav>
+                @endauth
+                @guest
+                    <nav class="flex sm:flex-row-reverse">
+                        <button id="signupBtnId" class="ml-5 px-5 text-red-400 ">Sign up</button>
+                        <button id="loginBtnId" class="text-white ml-5 hover:text-red-400 rounded-lg h-14 w-12">Log in</button>   
+                    </nav>
+                    <div id="loginFormId" class="login absolute bg-sky-800 md:w-80 md:h-64 top-17 right-20 rounded-md shadow-lg">
+                        <form class="bg-white shadow-lg rounded px-8 pt-6 pb-8" method="POST" action="/login/auth">
+                            @csrf
+                            <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                                Username
+                            </label>
+                            <input name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text">
+                            </div>
+                            <div class="mb-6">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                                Password
+                            </label>
+                            <input name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password">
+                            
+                            </div>
+                            <div class="flex items-center justify-between">
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                Sign In
+                            </button>
+                            <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+                                Forgot Password?
+                            </a>
+                            </div>
+                        </form>
+                    </div>
+
+                @endguest
+                
             </div>
         </div>
     </div>
