@@ -1,9 +1,9 @@
 @php
     $regsiterToggle = false;
     @endphp
-    @if($errors->signup)
+    @if($errors->hasBag('signup'))
     @php
-        $regsiterToggle = true
+        $regsiterToggle = true;
     @endphp
 @endif
 <div @style(['display: block' => $regsiterToggle, 'display:none' => !$regsiterToggle]) class="modal" id="registerModalId">
@@ -23,7 +23,7 @@
                         First Name
                     </label>
                     <input {{old('first_name')}} value="" name="first_name" class="h-8 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-first-name" type="text" placeholder="John">
-                    @error('first_name')
+                    @error('first_name', 'signup')
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
                     </div>
@@ -33,7 +33,7 @@
                         Last Name
                     </label>
                     <input {{old('last_name')}} name="last_name" class="h-8 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe">
-                    @error('last_name')
+                    @error('last_name', 'signup')
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
                     </div>
@@ -45,7 +45,7 @@
                         Email
                     </label>
                     <input {{old('email')}} name="email" class="h-8 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="email">
-                    @error('email')
+                    @error('email', 'signup')
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
                     </div>
@@ -57,7 +57,7 @@
                         Password
                         </label>
                         <input {{old('password')}} name="password" class="h-8 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="password" placeholder="******************">
-                        @error('password')
+                        @error('password', 'signup')
                             <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                         @enderror
                     </div>
@@ -70,7 +70,7 @@
                         </label>
                         <input {{old('password_confirmation')}} name="password_confirmation" class="h-8 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="password" placeholder="******************">
                     </div>
-                    @error('password_confirmation')
+                    @error('password_confirmation', 'signup')
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
                 </div>

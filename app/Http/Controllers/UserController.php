@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     //register new user
     public function store(Request $request){
-        $formValidated = $request->validateWithBag('signup' ,[
+        $formValidated = $request->validateWithBag('signup', [
             'first_name' => ['required', 'min:3'],
             'last_name' => ['required', 'min:3'],
             'email' => ['required', Rule::unique('users', 'email')],
@@ -21,7 +21,6 @@ class UserController extends Controller
         $formValidated['password'] = bcrypt($formValidated['password']);
 
         $newUser = User::create($formValidated);
-        dd($newUser);
         auth()->login($newUser);
 
         return redirect('/');
@@ -29,7 +28,7 @@ class UserController extends Controller
 
     //authenticate user
     public function authenticate(Request $request){
-        $validCredentials = $request->validate([
+        $validCredentials = $request->validateWithBag('auth', [
             'email' => ['required', 'email'],
             'password' => ['required']
         ]);
