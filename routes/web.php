@@ -19,14 +19,19 @@ use Illuminate\Support\Facades\Route;
     return view('index', ['products' => ['product1', 'product2', 'product3', 'product4', 'product5', 'product6', 'product7', 'product8']]);
 }); */
 
-Route::view('/signup', ['users.register']);
+//show register modal component view.
+/* Route::view('/signup', ['users.register']);
+ */
 
-Route::post('/login/auth', [UserController::class, 'authenticate']);
-
-Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 
 //Show all products
 
 Route::get('/', [ProductController::class, 'index']);
+
+Route::controller(UserController::class)->group(function(){
+    Route::post('/store', 'store'); //Register route
+    Route::post('/login/auth','authenticate'); //authenticate user (logging in)
+    Route::post('/logout', 'logout')->middleware('auth'); //logout user.
+});
 
 

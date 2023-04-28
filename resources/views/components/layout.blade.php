@@ -27,7 +27,7 @@
 
 
                         <div class="font-light mr-5">
-                            Welcome <span class="font-semibold">{{auth()->user()->name}}</span>
+                            Welcome <span class="font-semibold">{{auth()->user()->first_name}}</span>
                         </div>
 
                     </nav>
@@ -62,7 +62,9 @@
                                 Password
                             </label>
                             <input name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password">
-                            
+                            @error('password')
+                                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                            @enderror
                             </div>
                             <div class="flex items-center justify-between">
                             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
