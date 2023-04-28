@@ -15,7 +15,7 @@
                     </div>
                 </form>  
             </div>
-            <div class="basis-3/12 relative  text-white">
+            <div class="basis-3/12 relative  text-white" x-data="{show: false, toggle(){this.show = !this.show} }">
                 @auth
                     <nav class="flex sm:flex-row-reverse">
                         <div>
@@ -37,7 +37,15 @@
                         <button id="signupBtnId" class="ml-5 px-5 text-red-400 ">Sign up</button>
                         <button id="loginBtnId" class="text-white ml-5 hover:text-red-400 rounded-lg h-14 w-12">Log in</button>   
                     </nav>
-                    <div id="loginFormId" class="login absolute bg-sky-800 md:w-80 md:h-64 top-17 right-20 rounded-md shadow-lg">
+                    @php
+                        $toggle = false;
+                    @endphp
+                    @if($errors->any())
+                        @php
+                            $toggle = true
+                        @endphp
+                    @endif
+                    <div @style(['display: block' => $toggle, 'display:none' => !$toggle]) id="loginFormId" class="absolute bg-sky-800 md:w-80 md:h-64 top-17 right-20 rounded-md shadow-lg">
                         <form class="bg-white shadow-lg rounded px-8 pt-6 pb-8" method="POST" action="/login/auth">
                             @csrf
                             <div class="mb-4">
@@ -46,6 +54,9 @@
                             </label>
                             <input name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text">
                             </div>
+                            @error('email')
+                                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                            @enderror
                             <div class="mb-6">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
                                 Password
@@ -63,7 +74,6 @@
                             </div>
                         </form>
                     </div>
-
                 @endguest
                 
             </div>

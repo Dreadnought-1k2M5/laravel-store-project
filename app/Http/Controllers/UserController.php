@@ -19,10 +19,10 @@ class UserController extends Controller
             $request->session()->regenerate();
             return redirect("/");
         }
-        return response("FAILED");
-/*         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email'); */
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records. Please Try Again.',
+        ])->onlyInput('email')->with('');
     }
     public function logout(Request $request){
         auth()->logout();
