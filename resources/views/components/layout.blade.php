@@ -6,10 +6,10 @@
                 <img src="{{asset('images/logo.png')}}" alt="" class="w-16 md:w-16">
             </div>
             <div class="lg:h-10 grow">
-                <form action="">
+                <form action="/test">
                     @csrf
                     <div class="flex flex-row items-center">
-                        <input type="text" name="" id="" class="h-10 rounded-lg grow">
+                        <input type="text" name="search" id="" class="h-10 rounded-lg grow p-4" placeholder="Search for products or category">
                         {{-- <button>Submit</button> --}}
 
                     </div>
@@ -40,6 +40,7 @@
                     @php
                         $toggle = false;
                     @endphp
+                    {{-- This directive is for toggling the login div when there's error in validating form input --}}
                     @if($errors->hasBag('auth') || $errors->any())
                         @php
                             $toggle = true;
@@ -50,11 +51,14 @@
                             @csrf
                             <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-                                Username
+                                Email
                             </label>
                             <input name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text">
                             </div>
                             @error('email')
+                                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                            @enderror
+                            @error('email', 'auth')
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                             @enderror
 
@@ -82,12 +86,16 @@
             </div>
         </div>
     </div>
+    
     @include('partials.__category')
 
 
 </header>
 
 <main>
+    <br>
+    <br>
+    <br>
     {{$slot}}
 </main>
 

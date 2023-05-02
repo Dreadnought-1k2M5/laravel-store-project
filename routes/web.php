@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,12 @@ use Illuminate\Support\Facades\Route;
 //Show all products
 
 Route::get('/', [ProductController::class, 'index']);
+Route::get('/test', [ProductController::class, 'test']);
+
+//implicit binding requires the URI param segment should exactly match the model class name and the parameter defined at specified controller function.
+Route::get('/product/{products}', [ProductController::class, 'show']);
+
+/* Route::get('/carts', [ProductController::class, '']) */
 
 Route::controller(UserController::class)->group(function(){
     Route::post('/store', 'store'); //Register route
@@ -35,3 +42,5 @@ Route::controller(UserController::class)->group(function(){
 });
 
 
+//Cart
+Route::post('/cart', [CartController::class, 'show']);
