@@ -17,7 +17,7 @@
             </div>
             <div class="basis-3/12 relative  text-white" x-data="{show: false, toggle(){this.show = !this.show} }">
                 @auth
-                    <nav class="flex sm:flex-row-reverse">
+                    <nav class="flex sm:flex-row-reverse items-center">
                         <div>
                             <form method="POST" action='/logout'>
                                 @csrf
@@ -25,7 +25,13 @@
                             </form>
                         </div>
 
-
+                        <div class="mr-5">
+                            <form action="/cart" method="GET">
+                                @csrf
+                                <input type="hidden" name="user_id" value="{{auth()->id()}}">
+                                <button type="submit"><img src="{{asset('images/cart-icon.png')}}" class="w-7 md:w-7" alt=""></button>
+                            </form>
+                        </div>
                         <div class="font-light mr-5">
                             Welcome <span class="font-semibold">{{auth()->user()->first_name}}</span>
                         </div>

@@ -24,12 +24,14 @@ use Illuminate\Support\Facades\Route;
 /* Route::view('/signup', ['users.register']);
  */
 
+ Route::view('/login', 'users.login')->name('login');
+
 
 //Show all products
-
 Route::get('/', [ProductController::class, 'index']);
 Route::get('/test', [ProductController::class, 'test']);
 
+//show single product
 //implicit binding requires the URI param segment should exactly match the model class name and the parameter defined at specified controller function.
 Route::get('/product/{products}', [ProductController::class, 'show']);
 
@@ -43,4 +45,7 @@ Route::controller(UserController::class)->group(function(){
 
 
 //Cart
-Route::post('/cart', [CartController::class, 'show']);
+Route::controller(CartController::class)->group(function(){
+    Route::post('/user/store-cart', 'store')->middleware('auth');
+    Route::get('/cart', 'show')->middleware('auth');
+});

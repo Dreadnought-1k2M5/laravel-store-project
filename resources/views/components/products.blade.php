@@ -4,7 +4,7 @@
         <h1>No Result:</h1>
     @endif
 
-    <div class="flex flex-col items-start justify-between sm:flex-row flex-wrap">
+    <div class="flex flex-col items-start sm:flex-row flex-wrap">
         @foreach ($products as $item)
             <div class="shadow-md mb-10 sm:h-auto sm:w-72 mx-2 my-2 flex flex-col justify-between">
                 <a href="/product/{{$item->id}}" class="">
@@ -17,12 +17,12 @@
                         <p class="text-sm line-clamp-3">{{$item->product_description}}</p>
                     </div>
                 </a>
-{{--                 
+                
                 <div class="">
                     <button class="w-full h-full duration-300 hover:bg-red-500 hover:text-white text-red-500 text-lg py-2 px-4 border-red-500 border-2">
                     Add to Cart
                   </button>
-                </div> --}}
+                </div>
 
             </div>
 

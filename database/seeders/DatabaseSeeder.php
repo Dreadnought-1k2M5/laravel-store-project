@@ -57,9 +57,15 @@ class DatabaseSeeder extends Seeder
              'email' => 'test@example.com',
          ]);
 
+         $product_id = \App\Models\Products::factory()->create([
+            'product_name' => "test product name",
+            'category' => "test category",
+        ]);
+
          
          \App\Models\Carts::factory()->create([
-            'user_id' => $user->id
+            'user_id' => $user->id,
+            'product_id' => $product_id->id
          ]);
     }
 }

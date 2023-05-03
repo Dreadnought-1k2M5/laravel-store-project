@@ -24,6 +24,10 @@ class Products extends Model
         $query->select('category')->distinct();
     }
 
+    public function cart(){
+        return $this->hasMany(Carts::class, 'product_id');
+    }
+
 /*     public function scopeProducts($query){
         dd($query->select('products'))
     }

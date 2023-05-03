@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        //remove this line when doing migreate:refresh --seed
         View::share('categories', Products::category()->get());
     }
 }
