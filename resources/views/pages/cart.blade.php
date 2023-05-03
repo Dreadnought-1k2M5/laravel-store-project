@@ -4,10 +4,9 @@
         <div>
             <div class="2xl:max-w-screen-2xl sm:w-11/12 m-auto grid sm:grid-cols-4 sm:grid-rows-2 ">
                 <div class="sm:rows-span-2 sm:col-start-1 sm:col-end-4 overflow-x">
-                    <table class="w-full text-left ">
+                    <table class="w-full text-center ">
                         <thead>
                           <tr  class="{{-- bg-red-200 --}}">
-                            <th></th>
                             <th></th>
                             <th>Price</th>
                             <th>Quantity</th>
@@ -15,15 +14,15 @@
                         </thead>
                         <tbody>
                             @foreach ($Cart as $item)
-                            <tr>
-                                <td class="bg-red-100 sm:w-20">
-                                    <img class="w-full max-w-xs h-auto" src="{{/* $product->product_image ? asset('storage/' . $product->product_image) :  */asset('images/Product-inside.png')}}" alt="">
+                            <tr class="bg-gray-200">
+                                <td class="sm:w-50 flex h-auto items-center">
+                                    <div class="w-20">
+                                        <img class="w-full max-w-xs h-auto" src="{{/* $product->product_image ? asset('storage/' . $product->product_image) :  */asset('images/Product-inside.png')}}" alt="">
+                                    </div>
+                                    <h1 class="mx-2">{{$item->product_name}}</h1>   
                                 </td>
-                                <td class="sm:w-50">
-                                    <h1>{{$item->product_name}}</h1>   
-                                </td>
-                                <td >
-                                    <h1>{{$item->product_price}}</h1>   
+                                <td>
+                                    <h1><span>&#8369;</span>{{$item->product_price}}</h1>   
                                 </td>
                                 <td>
                                     <h1>{{$item->product_quantity}}</h1>   
