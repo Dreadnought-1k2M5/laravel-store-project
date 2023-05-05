@@ -28,7 +28,6 @@
                         <div class="mr-5">
                             <form action="/cart" method="GET">
                                 @csrf
-                                <input type="hidden" name="user_id" value="{{auth()->id()}}">
                                 <button type="submit"><img src="{{asset('images/cart-icon.png')}}" class="w-7 md:w-7" alt=""></button>
                             </form>
                         </div>

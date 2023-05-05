@@ -48,4 +48,6 @@ Route::controller(UserController::class)->group(function(){
 Route::controller(CartController::class)->group(function(){
     Route::post('/user/store-cart', 'store')->middleware('auth');
     Route::get('/cart', 'show')->middleware('auth');
+    Route::delete('/delete-item', 'delete');
 });
+

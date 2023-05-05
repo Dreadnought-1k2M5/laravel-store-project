@@ -8,8 +8,10 @@
                         <thead>
                           <tr  class="{{-- bg-red-200 --}}">
                             <th></th>
-                            <th>Price</th>
+                            <th>Item Price</th>
                             <th>Quantity</th>
+                            <th>Total price</th>
+                            <th></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -26,6 +28,21 @@
                                 </td>
                                 <td>
                                     <h1>{{$item->product_quantity}}</h1>   
+                                </td>
+                                <td>
+                                    <h1>{{$item->product_quantity * $item->product_price}}</h1>   
+                                </td>
+                                <td>
+                                    N/A
+                                </td>
+                                <td>
+                                    <form action="/delete-item" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="target_item" value="{{$item->id}}">
+                                        <input type="hidden" name="user_id" value="{{$item->user_id}}"> {{-- to make sure the product to be deleted from cart table belongs to the cureently authenticated user --}}
+                                        <button type="submit">Remove</button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach

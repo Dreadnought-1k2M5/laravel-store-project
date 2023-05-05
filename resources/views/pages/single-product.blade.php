@@ -14,29 +14,35 @@
                     </div>
                     <div class="flex flex-col justify-between content-start {{-- bg-red-200 --}} h-full">
                         <div
-                            <h1 class="font-medium text-4xl	">{{$product->product_name}}</h1>
+                            <h1 class="font-medium text-4xl">{{$product->product_name}}</h1>
                             <p class="text-3xl font-light text-red-500 my-2"><span>&#8369;</span>{{$product->price}}</p>
                             <div class="mt-6">
-                                <p class="my-2">Description:</p>
-                                <p class="text-base">{{$product->product_description}}</p>
+                                <p class="text-base">Description:</p>
+                                <p class="text-base font-light ">{{$product->product_description}}</p>
                             </div>
                         </div>
 
                         <div class="">
                             <form action="/user/store-cart" method="POST">
                                 @csrf
-                                <input type="hidden" name="user_id" value="{{auth()->id()}}">
                                 <input type="hidden" name="product_id" value="{{$product->id}}">
                                 
                                 <input type="hidden" name="product_name" value="{{$product->product_name}}">
                                 <input type="hidden" name="product_price" value="{{$product->price}}" >
-                                <div>
-                                    <p>Quantity:</p>
-                                    <div class="flex mb-3">
-                                        <button type="button" class="px-5 py-1 bg-red-100">+</button>
-                                        <input type="number" name="product_quantity" class="outline-0 text-center w-14 bg-red-200">
-                                        <button type="button" class="px-5 py-1 bg-red-100">-</button>
+                                <div class="flex">
+                                    <div class="mr-10">
+                                        <p>Quantity:</p>
+                                        <div class="flex mb-3">
+                                            <button type="button" class="px-5 py-1 bg-red-100">+</button>
+                                            <input type="number" name="product_quantity" class="outline-0 text-center w-14 bg-red-200">
+                                            <button type="button" class="px-5 py-1 bg-red-100">-</button>
+                                        </div>
                                     </div>
+                                    <div>
+                                        <p>Stock:</p>
+                                        <p>300</p>
+                                    </div>
+
                                 </div>
 
                                 <div class="flex">

@@ -19,9 +19,9 @@
                 </a>
                 
                 <div class="">
-                    <button class="w-full h-full duration-300 hover:bg-red-500 hover:text-white text-red-500 text-lg py-2 px-4 border-red-500 border-2">
-                    Add to Cart
-                  </button>
+                    <a href="/product/{{$item->id}}" class="w-full h-full duration-300 hover:bg-red-500 hover:text-white text-red-500 text-lg block text-center py-2 px-4 border-red-500 border-2">
+                        Add to Cart
+                    </a>
                 </div>
 
             </div>
