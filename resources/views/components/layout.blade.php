@@ -28,11 +28,15 @@
                         <div class="mr-5">
                             <form action="/cart" method="GET">
                                 @csrf
-                                <button type="submit"><img src="{{asset('images/cart-icon.png')}}" class="w-7 md:w-7" alt=""></button>
+                                <button id="cart-btn" type="submit" class="flex items-center">
+                                    <img src="{{asset('images/cart-icon.png')}}" class="w-5 md:w-5" alt="">
+                                    <p>Cart</p>
+                                </button>
+
                             </form>
                         </div>
-                        <div class="font-light mr-5">
-                            Welcome <span class="font-semibold">{{auth()->user()->first_name}}</span>
+                        <div class="font-light mr-10">
+                            <span class="font-semibold">{{auth()->user()->first_name}}</span>
                         </div>
 
                     </nav>

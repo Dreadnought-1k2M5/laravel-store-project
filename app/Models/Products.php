@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Products extends Model
 {
@@ -27,9 +28,12 @@ class Products extends Model
     public function cart(){
         return $this->hasMany(Carts::class, 'product_id');
     }
-
-/*     public function scopeProducts($query){
-        dd($query->select('products'))
+    public function scopeChangeStock($query, $product_id, $product_name, $quantity){
+        $productTarget = DB::table('products')->select('product_stock')->where('id', $product_id)->get()[0]->product_stock;
+        $quantity = (int)$quantity;
+        //dd(gettype($quantity));
+        DB::table('products')->select('product_stock')->where('id', $product_id)->update(['product_stock' => ($productTarget - $quantity)]);
     }
- */
+
+
 }

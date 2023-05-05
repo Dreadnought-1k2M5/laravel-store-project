@@ -10,17 +10,18 @@ var btn = document.getElementById("signupBtnId");
 var span = document.getElementsByClassName("modal__exit-btn")[0];
 
 // When the user clicks the button, open the modal 
-btn.onclick = function() {
+console.log(btn);
+btn.addEventListener('click', function() {
   modal.style.display = "block";
   document.body.style.overflow = "hidden";
-
-}
+});
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
+
+span.addEventListener('click', function() {
   modal.style.display = "none";
   document.body.style.overflow = "auto";
-}
+});
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
@@ -32,12 +33,12 @@ window.onclick = function(event) {
 
 
 let loginBtn = document.getElementById("loginBtnId");
-
+console.log(loginBtn);
 let loginForm = document.getElementById("loginFormId");
 
 let isClicked = false;
 
-loginBtn.onclick = function() {
+loginBtn.addEventListener('click', function() {
   isClicked = !isClicked;
   if(isClicked){
     loginForm.style.display = "block";
@@ -45,4 +46,4 @@ loginBtn.onclick = function() {
   }else{
     loginForm.style.display = "none";
   }
-}
+});

@@ -1,7 +1,7 @@
 <x-root-html>
     <x-layout>
         <x-register />
-        <div>
+        <div class="h-80">
             <div class="2xl:max-w-screen-2xl sm:w-11/12 m-auto grid sm:grid-cols-4 sm:grid-rows-2 ">
                 <div class="sm:rows-span-2 sm:col-start-1 sm:col-end-4 overflow-x">
                     <table class="w-full text-center ">
@@ -16,7 +16,7 @@
                         </thead>
                         <tbody>
                             @foreach ($Cart as $item)
-                            <tr class="bg-gray-200">
+                            <tr class="">
                                 <td class="sm:w-50 flex h-auto items-center">
                                     <div class="w-20">
                                         <img class="w-full max-w-xs h-auto" src="{{/* $product->product_image ? asset('storage/' . $product->product_image) :  */asset('images/Product-inside.png')}}" alt="">
@@ -50,7 +50,7 @@
                         </tbody>
                       </table>
                 </div>
-                <div class="rows-span-1 sm:col-start-4 sm:col-end-5 {{-- bg-green-100 --}}">
+                <div class="rows-span-1 sm:col-start-4 sm:col-end-5 {{-- bg-green-100 --}} bg-gray-200">
                     chyeckout box
                 </div>
             </div>

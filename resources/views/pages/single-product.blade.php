@@ -14,7 +14,12 @@
                     </div>
                     <div class="flex flex-col justify-between content-start {{-- bg-red-200 --}} h-full">
                         <div
-                            <h1 class="font-medium text-4xl">{{$product->product_name}}</h1>
+                            <h1 class="font-medium text-4xl">
+                                {{$product->product_name}}
+                            </h1>
+                            @if ($product->product_stock == 0)
+                            <p class="text-red-500 font-light"> (Out of stock) </p>
+                            @endif
                             <p class="text-3xl font-light text-red-500 my-2"><span>&#8369;</span>{{$product->price}}</p>
                             <div class="mt-6">
                                 <p class="text-base">Description:</p>
@@ -33,22 +38,28 @@
                                     <div class="mr-10">
                                         <p>Quantity:</p>
                                         <div class="flex mb-3">
-                                            <button type="button" class="px-5 py-1 bg-red-100">+</button>
-                                            <input type="number" name="product_quantity" class="outline-0 text-center w-14 bg-red-200">
-                                            <button type="button" class="px-5 py-1 bg-red-100">-</button>
+                                            <button type="button" id="btnIncrementId" class="px-5 py-1 bg-red-100">+</button>
+                                            <input type="number" data-product-stock="{{$product->product_stock}}" id="stockValueId" name="product_quantity" class="outline-0 text-center w-14 bg-red-200" value=1>
+                                            <button type="button" id="btnDecrementId" class="px-5 py-1 bg-red-100">-</button>
                                         </div>
                                     </div>
                                     <div>
-                                        <p>Stock:</p>
-                                        <p>300</p>
+                                        <p>Available Stock:</p>
+                                        <p>{{$product->product_stock}}</p>
                                     </div>
 
                                 </div>
 
                                 <div class="flex">
-                                    <button type="submit" class="w-full duration-300 hover:bg-red-500 hover:text-white text-red-500 text-lg py-2 px-4 border-red-500 border-2">
-                                        Add to Cart
-                                    </button>
+                                    @if ($product->product_stock == 0)
+                                        <button disabled  class="w-full bg-red-500 text-white text-lg py-2 px-4">
+                                            OUT OF STOCK
+                                        </button>       
+                                    @else
+                                        <button type="submit" class="disabled w-full duration-300 hover:bg-red-500 hover:text-white text-red-500 text-lg py-2 px-4 border-red-500 border-2">
+                                            Add to Cart
+                                        </button>
+                                    @endif
                                 </div>
 
                                 
