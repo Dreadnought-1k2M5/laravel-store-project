@@ -15,3 +15,13 @@ outline: none !important;
 .custom-number-input button:focus {
 outline: none !important;
 }
+
+.bg-css-signup{
+    background-image: url("./bg-signup.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+[x-cloak] {display: none;}
+

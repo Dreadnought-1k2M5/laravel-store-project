@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Web\CartController;
+use App\Http\Controllers\Web\OrderController;
+use App\Http\Controllers\Web\PaymentController;
+use App\Http\Controllers\Web\ProductController;
+use App\Http\Controllers\Web\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,17 +27,16 @@ use Illuminate\Support\Facades\Route;
  */
 
  Route::view('/login', 'users.login')->name('login');
+ Route::view('/profile', 'pages.my-order');
 
 
 //Show all products
 Route::get('/', [ProductController::class, 'index']);
-Route::get('/test', [ProductController::class, 'test']);
+Route::get('/search', [ProductController::class, 'showListCategory']);
+Route::get('/product/{products}', [ProductController::class, 'show']);//show single product
 
-//show single product
-//implicit binding requires the URI param segment should exactly match the model class name and the parameter defined at specified controller function.
-Route::get('/product/{products}', [ProductController::class, 'show']);
 
-/* Route::get('/carts', [ProductController::class, '']) */
+
 
 Route::controller(UserController::class)->group(function(){
     Route::post('/store', 'store'); //Register route
@@ -43,11 +44,17 @@ Route::controller(UserController::class)->group(function(){
     Route::post('/logout', 'logout')->middleware('auth'); //logout user.
 });
 
-
-//Cart
-Route::controller(CartController::class)->group(function(){
-    Route::post('/user/store-cart', 'store')->middleware('auth');
+Route::controller(CartController::class)->group(function(){ //Cart
+    Route::post('/user/store-cart', 'store');
     Route::get('/cart', 'show')->middleware('auth');
     Route::delete('/delete-item', 'delete');
 });
 
+
+Route::controller(OrderController::class)->group(function(){
+    Route::post('/checkout', 'checkout')->name('checkout');
+});
+
+Route::post('payment', [PaymentController::class, 'pay'])->name('payment');
+Route::get('success/{id}', [PaymentController::class, 'success']);
+Route::get('error/{id}', [PaymentController::class, 'error']);

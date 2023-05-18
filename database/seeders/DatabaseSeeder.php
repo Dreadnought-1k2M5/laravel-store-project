@@ -17,16 +17,10 @@ class DatabaseSeeder extends Seeder
             ["Beauty and Personal Care", "Starlight Shimmer Highlighter"],
             ["Beauty and Personal Care", "Moonstone Magic Facial Mist"],
             ["Beauty and Personal Care", "Enchanted Forest Hair Mask"],
-            ["Beauty and Personal Care", "Mermaid's Lagoon Bath Salts"],
-            ["Beauty and Personal Care", "Unicorn Tears Eyeshadow Palette"],
         ];
         $clothingApparel = [
             ["Clothing and Apparel", "Mystique Hoodie"],
             ["Clothing and Apparel", "Aurora Bomber Jacket"],
-            ["Clothing and Apparel", "Infinity Scarf"],
-            ["Clothing and Apparel", "Nova Leggings"],
-            ["Clothing and Apparel", "Celestial Dress"],
-            ["Clothing and Apparel", "Eclipse Sunglasses"],
             ["Clothing and Apparel", "Galactic Sneakers"],
             ["Clothing and Apparel", "Solar Backpack"],
             ["Clothing and Apparel", "Lunar Watch"]
@@ -52,20 +46,20 @@ class DatabaseSeeder extends Seeder
         }
         
          $user = \App\Models\User::factory()->create([
-             'first_name' => 'firstNameTest',
-             'last_name' => 'lastNameTest',
-             'email' => 'test@example.com',
+             'first_name' => 'Joshua',
+             'last_name' => 'Lumanog',
+             'email' => 'joshua@example.com',
          ]);
 
-         $product_id = \App\Models\Products::factory()->create([
+/*          $product_id = \App\Models\Products::factory()->create([
             'product_name' => "test product name",
             'category' => "test category",
-        ]);
+        ]); */
 
          
-         \App\Models\Carts::factory()->create([
+/*          \App\Models\Carts::factory()->create([
             'user_id' => $user->id,
             'product_id' => $product_id->id
-         ]);
+         ]); */
     }
 }

@@ -1,110 +1,174 @@
 
-<header class="md:h-16 sm:h-10 h-10  bg-sky-950 sticky top-0">
-    <div class="md:h-16 sm:h-10 h-10 bg-sky-950">
-        <div class="flex flex-row max-w-screen-xl m-auto items-center content-start">
-            <div class="basis-1/12">
+<header class="h-16 sm:h-auto bg-sky-950 sticky top-0">
+    <div class="h-full">
+        <div class="flex h-full flex-row max-w-screen-xl items-center content-start m-auto w-full sm:w-11/12">
+            <div class="basis-1/6 sm:basis-1/12 flex items-center">
                 <img src="{{asset('images/logo.png')}}" alt="" class="w-16 md:w-16">
             </div>
-            <div class="lg:h-10 grow">
-                <form action="/test">
-                    @csrf
-                    <div class="flex flex-row items-center">
-                        <input type="text" name="search" id="" class="h-10 rounded-lg grow p-4" placeholder="Search for products or category">
-                        {{-- <button>Submit</button> --}}
-
-                    </div>
-                </form>  
-            </div>
-            <div class="basis-3/12 relative  text-white" x-data="{show: false, toggle(){this.show = !this.show} }">
+            <form class="basis-8/12	sm:grow" action="{{-- api/v1/search --}}/search">
+                @csrf
+                <div class="">
+                    <input type="text" name="search" id="" class="rounded-lg grow p-2 w-full h-8 text-sm focus:outline-none focus:border-red-500 sm:py-3" placeholder="Search for products or category">
+                    {{-- <button>Submit</button> --}}
+                </div>
+            </form>
+            <div class="flex items-center justify-end basis-1/4 ml-3 sm:basis-1/5 text-white" {{-- x-data="{show: false, toggle(){this.show = !this.show} }" --}}>
                 @auth
-                    <nav class="flex sm:flex-row-reverse items-center">
-                        <div>
-                            <form method="POST" action='/logout'>
-                                @csrf
-                                <button type="submit">Logout</button>
-                            </form>
-                        </div>
-
-                        <div class="mr-5">
-                            <form action="/cart" method="GET">
-                                @csrf
-                                <button id="cart-btn" type="submit" class="flex items-center">
-                                    <img src="{{asset('images/cart-icon.png')}}" class="w-5 md:w-5" alt="">
-                                    <p>Cart</p>
+                    <nav class="w-full flex items-center justify-around sm:justify-end">
+                        <a href="/cart" class="hidden sm:block flex justify-center items-center rounded-full bg-gray-900 flex flex-col justify-center items-center w-10 h-10 px-2 py-2">
+                            <img src="{{asset('images/cart-icon.png')}}" alt="Image">
+                          </a>
+                        <div x-data="{ open: false }" x-cloak class="relative">
+                            <!-- Dropdown button -->
+                            <div class="font-light sm:mx-5 flex">
+                                <button x-on:click="open = !open" id="userBtnId" class="font-semibold flex items-center" >
+                                    <img src="{{asset('images/test.jpg')}}" class="w-10 h-10 rounded-full object-cover" alt="">
                                 </button>
-
-                            </form>
+                            </div>
+                            <!-- Dropdown menu -->
+                            <div x-show="open" x-on:click.away="open = false" class="absolute right-0 mt-2 w-80 bg-sky-950 text-white rounded-md overflow-hidden shadow-lg">
+                                <a href="/profile" class="block px-4 py-2 my-2 flex items-center hover:bg-gray-700">
+                                    <img src="{{asset('images/test.jpg')}}" class="w-10 h-10 rounded-full object-cover mr-2" alt="">
+                                    <p>{{Auth::user()->first_name . ' ' . Auth::user()->last_name}}</p>
+                                </a>
+                                <div class="w-11/12 border-b-2 m-auto">
+                                </div>
+                                <div class="my-1">
+                                    {{-- <img src="{{asset('images/setting.png')}}" class="h-auto w-6 mr-4" alt=""> --}}
+                                    <a href="#" class="block {{--  px-4 py-2 --}} px-4 py-2 hover:bg-gray-700">Settings</a>
+                                </div>
+                                
+                                <form method="POST" action="/logout" class="my-1">
+                                    @csrf
+                                    {{-- <img src="{{asset('images/exit.png')}}" class="h-auto w-6 mr-4" alt=""> --}}
+                                    <button type="submit" class="block h-full w-full hover:bg-gray-700 px-4 py-2 text-left">Logout</button>
+                                </form>
+                            </div>
                         </div>
-                        <div class="font-light mr-10">
-                            <span class="font-semibold">{{auth()->user()->first_name}}</span>
+{{--                         <div x-data="{open: false}" class="block mx-1 sm:hidden rounded-full bg-red-300">
+                        </div> --}}
+                        <div class="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center sm:hidden">
+                            <button class="text-2xl">&#9776;</button>
                         </div>
-
                     </nav>
                 @endauth
                 @guest
-                    <nav class="flex sm:flex-row-reverse">
-                        <button id="signupBtnId" class="ml-5 px-5 text-red-400 ">Sign up</button>
-                        <button id="loginBtnId" class="text-white ml-5 hover:text-red-400 rounded-lg h-14 w-12">Log in</button>   
-                    </nav>
-                    @php
-                        $toggle = false;
-                    @endphp
-                    {{-- This directive is for toggling the login div when there's error in validating form input --}}
-                    @if($errors->hasBag('auth') || $errors->any())
+                    <nav class="w-full flex items-center justify-end">
+                        <div>
+                            <button id="signupBtnId" class="hidden text-xs px-4 py-2 rounded-xl mx-1 bg-red-500 lg:block">Sign up</button>
+                        </div>
                         @php
-                            $toggle = true;
+                            $toggle = false;
                         @endphp
-                    @endif
-                    <div @style(['display: block' => $toggle, 'display:none' => !$toggle]) id="loginFormId" class="absolute bg-sky-800 md:w-80 md:h-64 top-17 right-20 rounded-md shadow-lg">
-                        <form class="bg-white shadow-lg rounded px-8 pt-6 pb-8" method="POST" action="/login/auth">
-                            @csrf
-                            <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-                                Email
-                            </label>
-                            <input name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text">
+                        {{-- This directive is for toggling the login div when there's error in validating form input --}}
+                        @if($errors->hasBag('auth') || $errors->any())
+                        <div x-data="{ open: true }" class="relative">
+                            <!-- Dropdown button -->
+                            <div class="font-light mx-2 sm:mx-5 flex">
+                                <button x-on:click="open = !open" id="userBtnId" id="loginBtnId" class="text-xs px-4 py-2 rounded-xl mx-1 border-2 border-red-500">Log in</button>   
                             </div>
-                            @error('email')
-                                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                            @enderror
-                            @error('email', 'auth')
-                                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                            @enderror
-
-                            <div class="mb-6">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-                                Password
-                            </label>
-                            <input name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password">
-                            @error('password', 'auth')
-                                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                            @enderror
+                            <!-- Dropdown menu -->
+                            <div x-show="open" x-cloak x-on:click.away="open = false" class="absolute right-0 mt-2 w-80 bg-sky-950 text-white rounded-md overflow-hidden shadow-lg">
+                                <form class="bg-white shadow-lg rounded px-8 pt-6 pb-8" method="POST" action="/login/auth">
+                                    @csrf
+                                    <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                                        Email
+                                    </label>
+                                    <input name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text">
+                                    </div>
+                                    @error('email')
+                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                                    @enderror
+                                    @error('email', 'auth')
+                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                                    @enderror
+        
+                                    <div class="mb-6">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                                        Password
+                                    </label>
+                                    <input name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password">
+                                    @error('password', 'auth')
+                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                                    @enderror
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                        Sign In
+                                    </button>
+                                    <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+                                        Forgot Password?
+                                    </a>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="flex items-center justify-between">
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                                Sign In
-                            </button>
-                            <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-                                Forgot Password?
-                            </a>
+                        </div>
+                        @else
+                            <div x-data="{ open: false }" class="relative">
+                                <!-- Dropdown button -->
+                                <div class="font-light mx-2 sm:mx-5 flex">
+                                    <button x-on:click="open = !open" id="userBtnId" id="loginBtnId" class="text-xs px-4 py-2 rounded-xl mx-1 border-2 border-red-500">Log in</button>   
+                                </div>
+                                <!-- Dropdown menu -->
+                                <div x-show="open" x-cloak x-on:click.away="open = false" class="absolute right-0 mt-2 w-80 bg-sky-950 text-white rounded-md overflow-hidden shadow-lg">
+                                    <form class="bg-white shadow-lg rounded px-8 pt-6 pb-8" method="POST" action="/login/auth">
+                                        @csrf
+                                        <div class="mb-4">
+                                        <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                                            Email
+                                        </label>
+                                        <input name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text">
+                                        </div>
+                                        @error('email')
+                                            <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                                        @enderror
+                                        @error('email', 'auth')
+                                            <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                                        @enderror
+            
+                                        <div class="mb-6">
+                                        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                                            Password
+                                        </label>
+                                        <input name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password">
+                                        @error('password', 'auth')
+                                            <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                                        @enderror
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                            Sign In
+                                        </button>
+                                        <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+                                            Forgot Password?
+                                        </a>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                        </form>
-                    </div>
+                        @endif
+                        
+                    </nav>                    
                 @endguest
                 
             </div>
         </div>
     </div>
-    
-    @include('partials.__category')
-
+    <div class="hidden sm:block bg-sky-900 text-white font-light text-xs h-10 md:text-base lg:text-lg ">
+        <div class="sm:block flex flex-row w-11/12 max-w-screen-xl m-auto h-full m-auto items-center content-start">
+            <div class="hidden h-full sm:block">
+                <a href="/" class="mr-10">Home</a>
+                @foreach ($categories as $item)
+                    <button class="h-full px-5 text-center hover:bg-sky-950 hover:text-red-500 duration-300 text-white">{{$item->category}}</button>
+                @endforeach
+            </div>
+        </div>
+    </div> 
 
 </header>
 
 <main>
-    <br>
-    <br>
-    <br>
     {{$slot}}
 </main>
 

@@ -19,7 +19,8 @@ class Carts extends Model
         'product_id',
         'product_name',
         'product_price', 
-        'product_quantity'
+        'product_quantity',
+        'total_price'
     ];
     public function user(){
         return $this->BelongsTo(User::class, 'user_id');
@@ -29,9 +30,9 @@ class Carts extends Model
     }
 
 
-    public function scopeCheck($query, $product_name, $user_id){
+    public function scopeCheck($query, $product_id, $user_id){
         /* dd($query->where('product_name', '=', '%' . $product_name . '%')); */
-        $query->select('product_name')->where('product_name', 'like', '%'.$product_name.'%')->where('user_id', '=', $user_id);
+        $query->where('product_id', $product_id)->where('user_id', $user_id);
     }
     public function scopeChangestock($query, $product_id, $product_name, $quantity){
         //$productTarget = Products::select('product_stock')->where('id', $product_id)->where('product_name', 'like', '%'.$product_name.'%')->get();
@@ -46,7 +47,22 @@ class Carts extends Model
     public function scopeIncreaseQuantity($query, $product_id, $additionalQuantity){
         $queryResult = Carts::where('product_id', $product_id)->where('user_id', Auth::user()->id);
         $currentQuantity = $queryResult->get()[0]->product_quantity;
-        $queryResult->update(['product_quantity' => ($currentQuantity + $additionalQuantity)]);
+        $currentTotalPrice = $queryResult->get()[0]->total_price;
+        $productPrice = $queryResult->get()[0]->product_price;
+
+        $newQuantity = $currentQuantity + $additionalQuantity;
+        $newTotalPrice = $currentTotalPrice + ($productPrice * $currentQuantity);
+
+        $queryResult->update(['product_quantity' => $newQuantity, 'total_price' => $newTotalPrice]);
         //Carts::where('product_id', $product_id)->where('user_id', Auth::user()->id)
+    }
+
+    public function scopeGetCartProductJoin($query, $user_id){
+        $join = DB::table('carts')
+        ->join('products', 'carts.id', '=', 'products.id')
+        ->select('carts.user_id', 'carts.product_id', 'carts.product_name', 'carts.product_price', 'carts.product_quantity', 'carts.total_price', 'products.product_stock', 'products.product_image')
+        ->where('user_id', $user_id)->get();
+
+        return $join;
     }
 }

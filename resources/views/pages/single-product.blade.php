@@ -1,19 +1,18 @@
 <x-root-html>
     <x-layout>
         <x-register />
-        
-        <div class="sm:max-w-screen-xl mt-10 m-auto mb-40">
+        <div class="sm:max-w-screen-xl mt-10 m-auto my-10 text-sky-900">
             <div class="grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1">
-                    <div class="flex flex-col items-center justify-center">
+                    <div class="flex flex-col items-center">
                         <div>
                             <img class="w-full max-w-sm h-auto" src="{{$product->product_image ? asset('storage/' . $product->product_image) : asset('images/Product-inside.png')}}" alt="">
-                            <div>
+{{--                             <div>
                                 
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
-                    <div class="flex flex-col justify-between content-start {{-- bg-red-200 --}} h-full">
-                        <div
+                    <div class="flex flex-col justify-between content-start bg-gray-100 px-4 py-6 rounded">
+                        <div>
                             <h1 class="font-medium text-4xl">
                                 {{$product->product_name}}
                             </h1>
@@ -26,8 +25,7 @@
                                 <p class="text-base font-light ">{{$product->product_description}}</p>
                             </div>
                         </div>
-
-                        <div class="">
+                        <div class="mt-14">
                             <form action="/user/store-cart" method="POST">
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{$product->id}}">
@@ -37,11 +35,12 @@
                                 <div class="flex">
                                     <div class="mr-10">
                                         <p>Quantity:</p>
-                                        <div class="flex mb-3">
+{{--                                         <div class="flex mb-3">
                                             <button type="button" id="btnIncrementId" class="px-5 py-1 bg-red-100">+</button>
                                             <input type="number" data-product-stock="{{$product->product_stock}}" id="stockValueId" name="product_quantity" class="outline-0 text-center w-14 bg-red-200" value=1>
                                             <button type="button" id="btnDecrementId" class="px-5 py-1 bg-red-100">-</button>
-                                        </div>
+                                        </div> --}}
+                                        <x-quantity-component :stock="$product->product_stock"/>
                                     </div>
                                     <div>
                                         <p>Available Stock:</p>

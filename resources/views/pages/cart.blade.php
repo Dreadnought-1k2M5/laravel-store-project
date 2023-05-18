@@ -1,59 +1,98 @@
 <x-root-html>
     <x-layout>
         <x-register />
-        <div class="h-80">
-            <div class="2xl:max-w-screen-2xl sm:w-11/12 m-auto grid sm:grid-cols-4 sm:grid-rows-2 ">
-                <div class="sm:rows-span-2 sm:col-start-1 sm:col-end-4 overflow-x">
-                    <table class="w-full text-center ">
-                        <thead>
-                          <tr  class="{{-- bg-red-200 --}}">
-                            <th></th>
-                            <th>Item Price</th>
-                            <th>Quantity</th>
-                            <th>Total price</th>
-                            <th></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($Cart as $item)
-                            <tr class="">
-                                <td class="sm:w-50 flex h-auto items-center">
-                                    <div class="w-20">
-                                        <img class="w-full max-w-xs h-auto" src="{{/* $product->product_image ? asset('storage/' . $product->product_image) :  */asset('images/Product-inside.png')}}" alt="">
+        <div class="w-full 2xl:max-w-screen-2xl mb-16 mt-10 text-sky-900 sm:py-10 sm:w-11/12 sm:m-auto">
+            <div class="col-start-1 col-end-4 row-span-1">
+                @if($Cart->count() > 0)
+                @php
+                    $total = 0;
+                @endphp
+                <div class="w-full px-1 lg:w-4/5 m-auto">
+                    <div>
+                        <h1 class="text-xl">Shopping Cart</h1>
+                    </div>
+                    <table class="w-full">
+                        <th class="{{-- w-4/5 --}} text-left"></th>
+                        <th class="{{-- w-1/5 --}}"></th>
+                        <th>Total</th>
+                        <th></th>
+
+                    </thead>
+                        <tbody class="">
+                        @foreach ($Cart as $item)
+                            <tr class="sm:table-row font-semibold border-b-2 h-28">                          
+                                <td class="flex w-5/5">
+                                    <div class="w-1/2 md:w-1/3 lg:w-1/5">
+                                        <img class="w-20 h-auto" src="{{$item->product_image ? asset('storage/' . $item->product_image) : asset('images/Product-inside.png')}}" alt="">
                                     </div>
-                                    <h1 class="mx-2">{{$item->product_name}}</h1>   
+                                    <div class="w-1/2 ml-2">
+                                        <h1 class="text-sm lg:text-lg">{{$item->product_name}}</h1>
+                                        <h1 class="font-light text-sm">Price: <span class="font-semibold text-red-500">&dollar;{{$item->product_price}}</span></h1>    
+                                    </div>
                                 </td>
-                                <td>
-                                    <h1><span>&#8369;</span>{{$item->product_price}}</h1>   
+                                <td class="w-1/5 text-center">
+                                    <div class="flex flex-col items-center justify-center">
+                                        <x-quantity-component :currentstock="$item->product_stock" :quantity="$item->product_quantity"/>
+                                        <p class="text-xs sm:text-base">Quantity</p>
+                                    </div>
                                 </td>
-                                <td>
-                                    <h1>{{$item->product_quantity}}</h1>   
-                                </td>
-                                <td>
-                                    <h1>{{$item->product_quantity * $item->product_price}}</h1>   
-                                </td>
-                                <td>
-                                    N/A
+                                <td class="w-1/5 text-center">
+                                    <h1 class="font-semibold text-base sm:text-2xl"><span>&dollar;</span>{{$item->total_price}}</h1>  
+                                    @php
+                                        $total += $item->total_price;
+                                    @endphp 
                                 </td>
                                 <td>
                                     <form action="/delete-item" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <input type="hidden" name="target_item" value="{{$item->id}}">
-                                        <input type="hidden" name="user_id" value="{{$item->user_id}}"> {{-- to make sure the product to be deleted from cart table belongs to the cureently authenticated user --}}
-                                        <button type="submit">Remove</button>
+                                        <input type="hidden" name="target_item" value="{{$item->product_id}}">
+                                        {{-- to make sure the product to be deleted from cart table belongs to the cureently authenticated user --}}
+                                        <input type="hidden" name="user_id" value="{{$item->user_id}}">
+                                        <button type="submit"><img src="{{asset('images/trash-bin.png')}}" class="h-auto w-10"></button>
                                     </form>
                                 </td>
                             </tr>
-                            @endforeach
-
+                        @endforeach
                         </tbody>
-                      </table>
+                    </table>
+
+                    <div class="mt-10 sm:ml-auto md:w-2/4 lg:w-1/4">
+                        <div class="border-b-2 my-4">
+                            <h1 class="text-xl font-semibold">Total Price: <span>&dollar;</span>{{$total}}</h1>
+                        </div>
+                        <div class="">
+                            <form action="/checkout" method="POST">
+                                @csrf
+{{--                                 <input type="hidden" name="userCartArr" value="{{$Cart}}"> --}}
+                                <button class="font-light block w-full px-2 py-3 bg-red-500 text-white text-sm">
+                                    PROCEED TO CHECKOUT
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="rows-span-1 sm:col-start-4 sm:col-end-5 {{-- bg-green-100 --}} bg-gray-200">
-                    chyeckout box
-                </div>
+
+
+{{-- 
+                    <div class="w-4/5 m-auto mt-3">
+                        <form action="/checkout" method="POST">
+                            @csrf
+                            <input type="hidden" name="userCartId" value="{{$Cart[0]->user_id}}">
+                            <button class="block px-4 py-3 w-2/5 border-2 border-red-500 hover:bg-red-500 hover:text-white">
+                                CHECKOUT
+                            </button>
+                        </form>
+
+                    </div> --}}
+
+                @else
+                    <div class="w-4/5 m-auto">
+                        <h1 class="text-xl">No Products at cart</h1>
+                    </div>
+                @endif
             </div>
         </div>
+
     </x-layout>
 </x-root-html>

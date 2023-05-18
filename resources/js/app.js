@@ -1,5 +1,6 @@
 import './bootstrap';
 
+
 // Get the modal
 var modal = document.getElementById("registerModalId");
 
@@ -47,3 +48,4 @@ loginBtn.addEventListener('click', function() {
     loginForm.style.display = "none";
   }
 });
+

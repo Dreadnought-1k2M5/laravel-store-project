@@ -7,13 +7,13 @@
     @endphp
 @endif
 <div @style(['display: block' => $regsiterToggle, 'display:none' => !$regsiterToggle]) class="modal" id="registerModalId">
-    <div class="modal__modal-actual rounded-lg w-3/4 m-auto bg-sky-950 grid grid-cols-5"> 
-        <div class="col-span-3 text-white px-8 py-5">
-            <h1 class="text-5xl uppercase">Shop with Confidence!</h1>
-            <p>Join the millions of satisfied customers who trust [Ecommerce Website Name] for all their shopping needs. Sign up now and get access to exclusive deals, promotions, and rewards. Shop smarter, save more, and enjoy the convenience of shopping online with [Ecommerce Website Name].
+    <div class="modal__modal-actual rounded-lg w-3/4 m-auto grid grid-cols-5 bg-css-signup"> 
+        <div class="col-span-3 text-white px-8 py-5 flex flex-col justify-end">
+            <h1 class="text-5xl uppercase">Shop with <br>Confidence!</h1>
+            <p class="text-light mt-10">Join the millions of satisfied customers who trust [Ecommerce Website Name] for all their shopping needs. Sign up now and get access to exclusive deals, promotions, and rewards. Shop smarter, save more, and enjoy the convenience of shopping online with [Ecommerce Website Name].
             </p>
         </div>
-        <div class=" rounded-lg col-span-2 bg-slate-100 flex flex-col">
+        <div class="rounded-lg col-span-2 bg-slate-100 flex flex-col">
             <span id="" class="modal__exit-btn text-3xl font-light">&times;</span>
             <form class="w-full max-w-full bg-slate-100 p-6 h-4/5" method="POST" action="/store">
                 @csrf

@@ -18,7 +18,7 @@ class CartsFactory extends Factory
     {
         return [
             'product_name' => $this->faker->word(),
-            'product_price' => $this->faker->numberBetween(35, 19999),
+            'product_price' => $this->faker->numberBetween(35, 599),
             'product_quantity' => $this->faker->numberBetween(35, 100)
         ];
     }

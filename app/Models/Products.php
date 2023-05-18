@@ -15,7 +15,8 @@ class Products extends Model
         'product_description',
         'price',
         'category',
-        'product_image'
+        'product_image',
+        'product_stock'
     ];
 
     public function scopeFilter($query, $search){
@@ -29,10 +30,10 @@ class Products extends Model
         return $this->hasMany(Carts::class, 'product_id');
     }
     public function scopeChangeStock($query, $product_id, $product_name, $quantity){
-        $productTarget = DB::table('products')->select('product_stock')->where('id', $product_id)->get()[0]->product_stock;
+        $currentStock = DB::table('products')->select('product_stock')->where('id', $product_id)->get()[0]->product_stock;
         $quantity = (int)$quantity;
         //dd(gettype($quantity));
-        DB::table('products')->select('product_stock')->where('id', $product_id)->update(['product_stock' => ($productTarget - $quantity)]);
+        DB::table('products')->select('product_stock')->where('id', $product_id)->update(['product_stock' => ($currentStock - $quantity)]);
     }
 
 
