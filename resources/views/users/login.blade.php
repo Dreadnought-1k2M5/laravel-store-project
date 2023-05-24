@@ -1,8 +1,10 @@
 <x-root-html>
-    <x-layout>
-        <x-register/>
-        <div>
-            Dedicated login page
-        </div>
-    </x-layout>
+    <body>
+        <x-layout>
+            <x-register/>
+            <div>
+                Dedicated login page
+            </div>
+        </x-layout>
+    </body>
 </x-root-html>

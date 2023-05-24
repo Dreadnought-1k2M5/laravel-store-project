@@ -51,6 +51,7 @@ class CartController extends Controller
     }
 
     public function show(){
+        //ADD MORE FOR SESSION/GUEST USERS
         $user_id = Auth::user()->id;
         $join = Carts::getCartProductJoin($user_id);
         return view('pages.cart', ['Cart' => $join ]);

@@ -1,15 +1,23 @@
-
 <header class="h-16 sm:h-auto bg-sky-950 sticky top-0">
     <div class="h-full">
-        <div class="flex h-full flex-row max-w-screen-xl items-center content-start m-auto w-full sm:w-11/12">
+        <div class="flex h-full flex-row max-w-screen-xl items-center content-start mx-auto w-full sm:w-11/12">
             <div class="basis-1/6 sm:basis-1/12 flex items-center">
                 <img src="{{asset('images/logo.png')}}" alt="" class="w-16 md:w-16">
             </div>
-            <form class="basis-8/12	sm:grow" action="{{-- api/v1/search --}}/search">
+            <form class="basis-8/12	sm:grow" action="{{-- api/v1/search --}}/product">
                 @csrf
-                <div class="">
-                    <input type="text" name="search" id="" class="rounded-lg grow p-2 w-full h-8 text-sm focus:outline-none focus:border-red-500 sm:py-3" placeholder="Search for products or category">
-                    {{-- <button>Submit</button> --}}
+                <div class="flex">
+                    <input type="text" name="search" id="" class="bg-gray-900 text-red-100 text-xs rounded-l-lg grow p-2 w-full h-9 focus:outline-none focus:border-red-500 sm:py-3" placeholder="Search for products">
+                    <select id="country" name="category" class="text-xs bg-sky-800 text-white h-9 w-16 sm:w-24 block rounded-r-md focus:outline-none">
+                        <option class="text-sm" value="all">All products</option>
+                        @foreach ($categories as $item)
+                            @isset($category) {{-- for search-result page --}}
+                                <option class="text-sm"  value="{{$item->category}}" {{ $category == $item->category ? 'selected' : '' }} > {{$item->category}}</option>
+                            @else{{-- for index main page --}}
+                                <option class="text-sm"  value="{{$item->category}}" > {{$item->category}}</option>
+                            @endisset
+                        @endforeach
+                    </select>
                 </div>
             </form>
             <div class="flex items-center justify-end basis-1/4 ml-3 sm:basis-1/5 text-white" {{-- x-data="{show: false, toggle(){this.show = !this.show} }" --}}>
@@ -17,7 +25,7 @@
                     <nav class="w-full flex items-center justify-around sm:justify-end">
                         <a href="/cart" class="hidden sm:block flex justify-center items-center rounded-full bg-gray-900 flex flex-col justify-center items-center w-10 h-10 px-2 py-2">
                             <img src="{{asset('images/cart-icon.png')}}" alt="Image">
-                          </a>
+                        </a>
                         <div x-data="{ open: false }" x-cloak class="relative">
                             <!-- Dropdown button -->
                             <div class="font-light sm:mx-5 flex">
@@ -45,108 +53,29 @@
                                 </form>
                             </div>
                         </div>
-{{--                         <div x-data="{open: false}" class="block mx-1 sm:hidden rounded-full bg-red-300">
-                        </div> --}}
-                        <div class="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center sm:hidden">
-                            <button class="text-2xl">&#9776;</button>
-                        </div>
+                        @php
+                            $target = 'btnSidebarId';
+                        @endphp
+                        <x-side-btn class="bg-gray-900" :idTarget="$target"/>
+
                     </nav>
+                    <div id="mySidenav" style="top: 60px" class="sidenav flex flex-col right-0">
+                        @foreach ($categories as $item)
+                            <a class="sidenav__links">{{$item->category}}</a>
+                        @endforeach
+                    </div>
+
                 @endauth
                 @guest
                     <nav class="w-full flex items-center justify-end">
                         <div>
                             <button id="signupBtnId" class="hidden text-xs px-4 py-2 rounded-xl mx-1 bg-red-500 lg:block">Sign up</button>
                         </div>
-                        @php
-                            $toggle = false;
-                        @endphp
                         {{-- This directive is for toggling the login div when there's error in validating form input --}}
                         @if($errors->hasBag('auth') || $errors->any())
-                        <div x-data="{ open: true }" class="relative">
-                            <!-- Dropdown button -->
-                            <div class="font-light mx-2 sm:mx-5 flex">
-                                <button x-on:click="open = !open" id="userBtnId" id="loginBtnId" class="text-xs px-4 py-2 rounded-xl mx-1 border-2 border-red-500">Log in</button>   
-                            </div>
-                            <!-- Dropdown menu -->
-                            <div x-show="open" x-cloak x-on:click.away="open = false" class="absolute right-0 mt-2 w-80 bg-sky-950 text-white rounded-md overflow-hidden shadow-lg">
-                                <form class="bg-white shadow-lg rounded px-8 pt-6 pb-8" method="POST" action="/login/auth">
-                                    @csrf
-                                    <div class="mb-4">
-                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-                                        Email
-                                    </label>
-                                    <input name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text">
-                                    </div>
-                                    @error('email')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                    @enderror
-                                    @error('email', 'auth')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                    @enderror
-        
-                                    <div class="mb-6">
-                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-                                        Password
-                                    </label>
-                                    <input name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password">
-                                    @error('password', 'auth')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                    @enderror
-                                    </div>
-                                    <div class="flex items-center justify-between">
-                                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                                        Sign In
-                                    </button>
-                                    <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-                                        Forgot Password?
-                                    </a>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                            <x-login-dropdown :isToggled="true" />
                         @else
-                            <div x-data="{ open: false }" class="relative">
-                                <!-- Dropdown button -->
-                                <div class="font-light mx-2 sm:mx-5 flex">
-                                    <button x-on:click="open = !open" id="userBtnId" id="loginBtnId" class="text-xs px-4 py-2 rounded-xl mx-1 border-2 border-red-500">Log in</button>   
-                                </div>
-                                <!-- Dropdown menu -->
-                                <div x-show="open" x-cloak x-on:click.away="open = false" class="absolute right-0 mt-2 w-80 bg-sky-950 text-white rounded-md overflow-hidden shadow-lg">
-                                    <form class="bg-white shadow-lg rounded px-8 pt-6 pb-8" method="POST" action="/login/auth">
-                                        @csrf
-                                        <div class="mb-4">
-                                        <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-                                            Email
-                                        </label>
-                                        <input name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text">
-                                        </div>
-                                        @error('email')
-                                            <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                        @error('email', 'auth')
-                                            <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-            
-                                        <div class="mb-6">
-                                        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-                                            Password
-                                        </label>
-                                        <input name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password">
-                                        @error('password', 'auth')
-                                            <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                        </div>
-                                        <div class="flex items-center justify-between">
-                                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                                            Sign In
-                                        </button>
-                                        <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-                                            Forgot Password?
-                                        </a>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+                            <x-login-dropdown :isToggled="false"/>
                         @endif
                         
                     </nav>                    
@@ -155,24 +84,18 @@
             </div>
         </div>
     </div>
-    <div class="hidden sm:block bg-sky-900 text-white font-light text-xs h-10 md:text-base lg:text-lg ">
-        <div class="sm:block flex flex-row w-11/12 max-w-screen-xl m-auto h-full m-auto items-center content-start">
-            <div class="hidden h-full sm:block">
-                <a href="/" class="mr-10">Home</a>
-                @foreach ($categories as $item)
-                    <button class="h-full px-5 text-center hover:bg-sky-950 hover:text-red-500 duration-300 text-white">{{$item->category}}</button>
-                @endforeach
-            </div>
-        </div>
-    </div> 
+
+    @include('partials.__category')
+    <div class="bg-dark" id="bgDarkId"></div>{{-- background when sidebar displays --}}
 
 </header>
 
-<main>
+
+<main class="flex-grow">
     {{$slot}}
 </main>
-
-<footer class="bg-sky-950 sm:h-80">    
+    
+<footer class="mt-auto bg-sky-950 sm:h-80">    
     <div class="max-w-screen-xl sm:m-auto grid grid-cols-1 md:grid-cols-4 gap-5 text-white pt-10 h-full font-semibold">
         <div class="leading-8 font-light">
             We are an online store that offers a wide variety of products, ranging from electronics to fashion, beauty, home decor, and more. Our website is designed to provide a seamless shopping experience for our customers, with easy navigation, secure payment options, and fast shipping.

@@ -24,4 +24,49 @@ outline: none !important;
 }
 
 [x-cloak] {display: none;}
+/* ************************************************************ */
+:root{
+    --grey: #7A7A7A;
+    --black: #323232;
+    --white: #fff;
+    --sky-950: rgb(8 47 73);
 
+    --text-grey: var(--grey);
+    --text-black: var(--black);
+    --text-white: var(--white);
+
+    --width-lg: 1300px;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 11;
+/*     top: 60px; */
+    background-color: var(--sky-950);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 8px;
+    white-space: nowrap;
+    /* background-color: red; */
+    text-decoration: none;
+    font-size: 13px;
+    color: var(--text-white);
+    display: block;
+    transition: 0.3s;
+  }
+
+.sidenav .closebtn {
+    font-size: 36px;
+    font-family: Poppins, sans-serif;
+    font-weight: 600;
+    color: var(--text-black);
+    background-color: transparent;
+    font-size: 15px;
+    line-height: 22px;
+}
