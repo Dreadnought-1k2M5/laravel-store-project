@@ -103,8 +103,9 @@ class PaymentController extends Controller
                 $payment->save();
 
                 Order::where('id', $order_id)->update(['payment_status' => 'Paid']);
-
-                return "Payment is successful. Transaction ID: " . $arr['id'];
+                
+                return redirect('/profile');
+                //return "Payment is successful. Transaction ID: " . $arr['id'];
             }
             else{
 
