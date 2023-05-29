@@ -1,4 +1,4 @@
-<header class="h-16 sm:h-auto bg-sky-950 sticky top-0">
+<header class="h-16 sm:h-auto bg-sky-950 sticky top-0 z-50">
     <div class="h-full">
         <div class="flex h-full flex-row max-w-screen-xl items-center content-start mx-auto w-full sm:w-11/12">
             <div class="basis-1/6 sm:basis-1/12 flex items-center">
@@ -7,17 +7,20 @@
             <form class="basis-8/12	sm:grow" action="{{-- api/v1/search --}}/product">
                 @csrf
                 <div class="flex">
-                    <input type="text" name="search" id="" class="bg-gray-900 text-red-100 text-xs rounded-l-lg grow p-2 w-full h-9 focus:outline-none focus:border-red-500 sm:py-3" placeholder="Search for products">
-                    <select id="country" name="category" class="text-xs bg-sky-800 text-white h-9 w-16 sm:w-24 block rounded-r-md focus:outline-none">
-                        <option class="text-sm" value="all">All products</option>
+                    <select id="country" name="category" class="text-center text-xs sm:text-sm bg-sky-800 text-white h-9 w-16 sm:w-24 block rounded-l-md focus:outline-none">
+                        <option class="" value="all">All Products</option>
                         @foreach ($categories as $item)
                             @isset($category) {{-- for search-result page --}}
-                                <option class="text-sm"  value="{{$item->category}}" {{ $category == $item->category ? 'selected' : '' }} > {{$item->category}}</option>
+                                <option class=""  value="{{$item->category}}" {{ $category == $item->category ? 'selected' : '' }} > {{$item->category}}</option>
                             @else{{-- for index main page --}}
-                                <option class="text-sm"  value="{{$item->category}}" > {{$item->category}}</option>
+                                <option class=""  value="{{$item->category}}" > {{$item->category}}</option>
                             @endisset
                         @endforeach
                     </select>
+                    <input type="text" name="search" id="" class="bg-gray-900 text-red-100 text-xs grow p-2 w-full h-9 focus:outline-none focus:border-red-500 sm:py-3" placeholder="Search for products">
+                    <button class="rounded-r-lg bg-red-500 px-2 sm:px-3">
+                        <img src="{{asset('images/search-icon.png')}}" class="w-8 h-auto" alt="Image">
+                    </button>
                 </div>
             </form>
             <div class="flex items-center justify-end basis-1/4 ml-3 sm:basis-1/5 text-white" {{-- x-data="{show: false, toggle(){this.show = !this.show} }" --}}>
@@ -60,9 +63,17 @@
 
                     </nav>
                     <div id="mySidenav" style="top: 60px" class="sidenav flex flex-col right-0">
-                        @foreach ($categories as $item)
-                            <a class="sidenav__links">{{$item->category}}</a>
-                        @endforeach
+                        <div class="w-11/12 mx-auto text-base">
+                            <div class="mb-3">
+                                <a class="text-lg" href="/">Home</a>
+                                <a class="text-lg" href="/cart">My Cart</a>
+                            </div>
+                            <div class=" border-b-2">
+                            </div>
+                            @foreach ($categories as $item)
+                                <a class="sidenav__links" href="/product/category/{{$item->category}}">{{$item->category}}</a>
+                            @endforeach
+                        </div>
                     </div>
 
                 @endauth
@@ -77,7 +88,7 @@
                         @else
                             <x-login-dropdown :isToggled="false"/>
                         @endif
-                        
+
                     </nav>                    
                 @endguest
                 

@@ -28,10 +28,10 @@ class ProductsFactory extends Factory
         ]; */
 
         return [
-            'product_name' => $this->faker->word(),
+           /*  'product_name' => $this->faker->word(),
             'product_description' => $this->faker->sentences(5, true),
             'price' => $this->faker->numberBetween(45, 599),
-            'category' => $this->faker->randomElement(['Clothing and Apparel', 'Electronics', 'Home and Garden', 'Sports and Outdoors', 'Beauty and Personal Care', 'Toys and Games', 'Books and Media'])
+            'category' => $this->faker->randomElement(['Clothing and Apparel', 'Electronics', 'Home and Garden', 'Sports and Outdoors', 'Beauty and Personal Care', 'Toys and Games', 'Books and Media']) */
         ];
     }
 }

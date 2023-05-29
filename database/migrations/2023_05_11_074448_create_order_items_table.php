@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id(); //Order ID
             $table->foreignId('customer_id')->references('id')->on('users');
             $table->foreignId('order_id')->references('id')->on('orders');
-            $table->foreignId('product_id')->references('id')->on('products');
+            $table->foreignId('product_id');
             $table->string("product_name");
             $table->integer('product_price')->default(0);
             $table->integer('product_quantity')->default(0);

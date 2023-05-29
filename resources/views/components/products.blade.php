@@ -4,30 +4,38 @@
         <h1>No Result:</h1>
     @endif
 
-    <div class="flex sm:flex-row flex-wrap justify-normal md:justify-evenly lg:justify-normal">
-        @foreach ($products as $item)
-            <div class="flex text-sky-900 my-1 w-1/2 h-1/1 mr-auto md:w-64 md:mr-4 lg:w-72 shadow-md mb-10">
-                <div class="p-3 w-full flex flex-col justify-between h-full">
-                    <div>
-                        <img class="w-44 h-auto m-auto" src="{{$item->product_image ? asset('storage/' . $item->product_image) : asset('images/Product-inside.png')}}" alt="">
-                        <div class="mt-2">
-                            <a href="" class="font-light text-sm sm:text-base hover:text-red-500 duration-100">{{$item->category}}</a>
-                            <h1 class="font-medium text-sm sm:text-lg">{{$item->product_name}}</h1>
-                            <p class="my-2 text-red-500"><span>&dollar;</span>{{$item->price}}</p>
-                        </div>
+    @isset($categoryLabel)
+    <div class="mb-10">
+        <h1 class="text-xl">Category: <span class="">{{$categoryLabel}}</span></h1>
 
-                        {{-- <p class="hidden sm:text-sm sm:line-clamp-3">{{$item->product_description}}</p> --}}
-                    </div>
-                    <br>
-                    <div class="">
-                        <a href="/product/{{$item->id}}" class="text-white text-base sm:text-lg block text-center py-1 px-2 bg-sky-900 rounded duration-300 hover:bg-red-500">
-                            Add to Cart
+    </div>
+
+    @endisset
+
+
+    <div class="flex flex-wrap">
+        @foreach ($products as $item)
+            <div class="w-full h-auto sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 p-4">
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <img class="w-44 h-auto m-auto" src="{{$item->product_image ? asset('storage/' . $item->product_image) : asset('images/Product-inside.png')}}" alt="">
+    
+                <div class="p-4">
+                    <a href="" class="font-light text-sm sm:text-sm hover:text-red-500 duration-100">{{$item->category}}</a>
+                    <h1 class="font-medium text-sm sm:text-base">{{$item->product_name}}</h1>
+                    <p class="my-2 text-red-500"><span>&dollar;</span>{{$item->price}}</p>
+                    <div class="mt-10">
+                        <a href="/product/{{$item->id}}" class="bg-blue-500 bg-sky-900 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">
+                        Add to Cart
                         </a>
                     </div>
+    
                 </div>
-            </div>
+                </div>
+            </div>     
         @endforeach
     </div>
+
+      
     <div class="w-full">
         {{ $products->links() }}
     </div>

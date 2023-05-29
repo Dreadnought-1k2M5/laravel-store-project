@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Web\ProductsController;
 use App\Http\Controllers\Web\AdminController;
 use App\Http\Controllers\Web\CartController;
 use App\Http\Controllers\Web\OrderController;
+use App\Http\Controllers\Web\OrderItemsController;
 use App\Http\Controllers\Web\PaymentController;
 use App\Http\Controllers\Web\ProductController;
 use App\Http\Controllers\Web\UserController;
@@ -33,10 +35,13 @@ use Illuminate\Support\Facades\Route;
 //Show all products
 
 Route::controller(ProductController::class)->group(function(){
-    Route::get('/', [ProductController::class, 'index']);
+    Route::get('/', 'index');
     //Route::get('/category/{category}', [ProductController::class, 'searchListCategory']);
-    Route::get('/product', [ProductController::class, 'searchListProduct']);
-    Route::get('/product/{product}', [ProductController::class, 'show']);//show single product
+    Route::get('/product',  'searchListProduct'); //search product by name or category.
+    Route::get('/product/category/{category}', 'showProductsByCategory'); //return products by category.
+    Route::get('/product/{product}', 'show');//show single product
+
+    Route::patch('/cart/update/quantity/{id}', 'updateQuantity')->name('cart.product.update');
 
 });
 
@@ -49,14 +54,19 @@ Route::controller(UserController::class)->group(function(){
 });
 
 Route::controller(CartController::class)->group(function(){ //Cart
-    Route::post('/user/store-cart', 'store');
+    Route::post('/cart/store', 'store');
     Route::get('/cart', 'show')->middleware('auth');
-    Route::delete('/delete-item', 'delete');
+    Route::delete('/cart/delete', 'delete');
+
 });
 
 
 Route::controller(OrderController::class)->group(function(){
     Route::post('/checkout', 'checkout')->name('checkout');
+});
+
+Route::controller(OrderItemsController::class)->group(function(){
+    Route::get('/order/{orderId}', 'show');
 });
 
 Route::controller(AdminController::class)->group(function(){
@@ -65,6 +75,9 @@ Route::controller(AdminController::class)->group(function(){
     Route::get('/gate/login', 'show')->name('gate.login-admin');
 });
 
+Route::post('/admin/create', [ProductController::class, 'store'])->middleware('admin.auth');
+
 Route::post('payment', [PaymentController::class, 'pay'])->name('payment');
 Route::get('success/{id}', [PaymentController::class, 'success']);
 Route::get('error/{id}', [PaymentController::class, 'error']);
+

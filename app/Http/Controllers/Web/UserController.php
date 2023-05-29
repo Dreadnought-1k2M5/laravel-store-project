@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Web;
 
+use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Order;
+use App\Models\OrderItems;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
-use App\Models\OrderItems;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -53,6 +55,7 @@ class UserController extends Controller
     }
 
     public function show(){
-        return view('users.profile', ['orders' => OrderItems::where('customer_id', Auth::user()->id)->get()]);
+        $order = Order::where('customer_id', Auth::user()->id)->get();
+        return view('users.profile', ['orders' => $order]);
     }
 }

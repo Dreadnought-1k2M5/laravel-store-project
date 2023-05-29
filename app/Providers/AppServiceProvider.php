@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\ServiceProvider;
 use App\Models\Products;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,6 +23,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //remove this line when doing migreate:refresh --seed
-        View::share('categories', Products::category()->get());
+
+        if (Schema::hasTable('products')) {
+            // Table exists
+            View::share('categories', Products::category()->get());
+        } else {
+            // Table does not exist
+            View::share('categories', []);
+        }
     }
 }

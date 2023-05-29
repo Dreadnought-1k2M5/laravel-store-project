@@ -47,7 +47,7 @@ outline: none !important;
     background-color: var(--sky-950);
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
+    padding-top: 20px;
 }
 
 .sidenav a {
@@ -55,7 +55,6 @@ outline: none !important;
     white-space: nowrap;
     /* background-color: red; */
     text-decoration: none;
-    font-size: 13px;
     color: var(--text-white);
     display: block;
     transition: 0.3s;

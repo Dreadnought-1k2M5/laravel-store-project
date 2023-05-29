@@ -60,7 +60,7 @@ class Carts extends Model
     public function scopeGetCartProductJoin($query, $user_id){
         $join = DB::table('carts')
         ->join('products', 'carts.product_id', '=', 'products.id')
-        ->select('carts.user_id', 'carts.product_id', 'carts.product_name', 'carts.product_price', 'carts.product_quantity', 'carts.total_price', 'products.product_stock', 'products.product_image')
+        ->select('carts.id', 'carts.user_id', 'carts.product_id', 'carts.product_name', 'carts.product_price', 'carts.product_quantity', 'carts.total_price', 'products.product_stock', 'products.product_image')
         ->where('user_id', $user_id)->get();
         return $join;
     }

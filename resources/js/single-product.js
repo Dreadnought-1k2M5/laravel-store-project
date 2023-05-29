@@ -24,4 +24,28 @@ btnDecrement.addEventListener('click', function(){
 });
 
 
+function ajaxProductStock(){
+    $.ajax({
+        url: url,
+        type: 'PATCH',
+        header: {
+            'X-CSRF-TOKEN': csrfTokenMeta
+        },
+        data: {
+            '_token': csrfTokenMeta,
+            'operation': operation,
+            'productId': productId
+        },
+        success: function(response) {
+            // Handle success, update UI, display message, etc.
+            console.log(indexCartItem);
+            console.log(quantityElement);
+            quantityElement[indexCartItem].value = response.newQuantity;
+        },
+        error: function(xhr) {
+            // Handle error, display error message, etc.
+            console.log(xhr.responseText);
+        }
+    });
+}
 

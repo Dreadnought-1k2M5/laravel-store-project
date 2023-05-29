@@ -29,7 +29,7 @@
                                 </div>
                             </div>
                             <div class="mt-14">
-                                <form action="/user/store-cart" method="POST">
+                                <form action="/cart/store" method="POST">
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{$product->id}}">
                                     
@@ -42,7 +42,7 @@
                                         </div>
                                         <div>
                                             <p>Available Stock:</p>
-                                            <p>{{$product->product_stock}}</p>
+                                            <p id="productStockId">{{$product->product_stock}}</p>
                                         </div>
     
                                     </div>
@@ -64,17 +64,17 @@
                         </div>
                 </div>
     
-                <div class="mt-10 mb-24 mx-2 h-auto sm:mx-auto sm:w-4/5">
+                <div class="mt-10 mb-24 mx-1 h-auto sm:mx-10">
                     <h2 class="text-lg font-semibold">Related Products</h2>
-                    <div class="flex flex-col mt-4 mx-auto h-1/1 w-full h-full justify-between sm:wrap sm:flex-row">
+                    <div class="flex flex-col md:flex-row md:flex-wrap">
                         @foreach($relatedProducts as $item)
-                            <div class="p-2 bg-slate-100 w-full flex my-1 mx-1 sm:w-3/5">
+                            <div class="p-2  my-1 w-full flex sm:w-full md:w-1/3 lg:w-2/6">
                                 <div class="mr-3">
-                                    <img class="w-32 h-auto m-auto" src="{{$item->product_image ? asset('storage/' . $item->product_image) : asset('images/Product-inside.png')}}" alt="">
+                                    <img class="w-40 md:w-40 h-auto" src="{{$item->product_image ? asset('storage/' . $item->product_image) : asset('images/Product-inside.png')}}" alt="">
                                 </div>
-                                <div class="flex flex-col justify-between">
+                                <div class="flex flex-col">
                                     <div>
-                                        <h1 class="font-medium text-sm">{{$item->product_name}}</h1>
+                                        <h1 class="font-medium text-xs lg:text-sm">{{$item->product_name}}</h1>
                                         <a href="" class="font-light text-xs hover:text-red-500 duration-100">{{$item->category}}</a>
                                         <p class="my-2 text-red-500"><span>&dollar;</span>{{$item->price}}</p>
                                     </div>
@@ -87,7 +87,9 @@
                                 </div>
                             </div>
                         @endforeach
-                    </div>
+                        <!-- Add more related product items here -->
+                      </div>
+                      
                 </div>
                 
             </div>

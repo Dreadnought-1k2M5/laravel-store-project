@@ -20,6 +20,7 @@
     position: relative;
     animation-name: modal-animation;
     animation-duration: 0.5s;
+    margin-top: 50px;
 }
 
 @keyframes modal-animation {

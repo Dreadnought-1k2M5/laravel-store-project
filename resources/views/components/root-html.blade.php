@@ -17,9 +17,16 @@
     @vite('resources/js/multi-step-form.js')
     @vite('resources/js/sidebar.js')
     @vite('resources/js/admin-sidebar.js')
-    
-    
+
+    @vite('resources/js/slick-1.8.1/slick/slick.min.js')
+    @vite('resources/js/slick-1.8.1/slick/slick.css')
+    @vite('resources/js/slick-1.8.1/slick/slick-theme.css')
+    @vite('resources/js/slider.js')
+    {{-- @vite('resources/js/ajax-quantity.js') --}}
+
     <script src="//unpkg.com/alpinejs" defer></script>
+    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
     
