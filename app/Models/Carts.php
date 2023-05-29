@@ -51,7 +51,7 @@ class Carts extends Model
         $productPrice = $queryResult->get()[0]->product_price;
 
         $newQuantity = $currentQuantity + $additionalQuantity;
-        $newTotalPrice = $currentTotalPrice + ($productPrice * $currentQuantity);
+        $newTotalPrice = $productPrice * ($currentQuantity + $additionalQuantity);
 
         $queryResult->update(['product_quantity' => $newQuantity, 'total_price' => $newTotalPrice]);
         //Carts::where('product_id', $product_id)->where('user_id', Auth::user()->id)

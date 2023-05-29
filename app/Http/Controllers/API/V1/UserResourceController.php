@@ -20,7 +20,7 @@ class UserResourceController extends Controller
 /*             $access = $user->tokens()->first();
             $token = $access->plainTextToken; */
 
-            $token = $user->createToken('client-token', ['read']);
+            $token = $user->createToken('client-token', ['read', 'create']);
             return response()->json([
                 'clientToken' => $token,
                 'clientId' => $user->id

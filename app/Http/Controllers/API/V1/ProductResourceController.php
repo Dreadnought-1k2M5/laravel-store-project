@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Products;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\V1\BulkStoreProductsRequest;
 use App\Http\Resources\V1\ProductCollection;
 use App\Http\Resources\V1\ProductResource;
 
@@ -26,6 +27,20 @@ class ProductResourceController extends Controller
         return new ProductCollection($products);
     }
 
+    public function searchByCategory(Request $request){
+        $category = $request->category;
+        $search = $request->search;
+        if(strtolower($category) == "all"){
+            $products = Products::where('product_name', 'like', '%' . $search .'%')->get();
+            return response()->json(collect($products)->toArray());
+        }else{
+            $productsByCategory = Products::where('category', 'like', '%' . $category .'%')->where('product_name', 'like', '%' . $search .'%')->get();
+            return response()->json(collect($productsByCategory)->toArray());
+
+        }
+
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -41,6 +56,7 @@ class ProductResourceController extends Controller
     {
         //
     }
+
 
     /**
      * Display the specified resource.
