@@ -1,3 +1,5 @@
+
+
 # Laravel-training (Basic Online Store)
 'MidnightGaze Store' is a basic online store created in Laravel that offers both Clothing/Apparel products and Electronic/Gadget products. It includes featues such as user registration and authentication, displaying product details, searching products by name or category, adding and removing products to cart, checkout with PayPal sandbox, a basic admin page for the owner to add products, and it also offers REST API services that exposes most of the same functionality as the web interface.
 
@@ -38,11 +40,11 @@ In the .env file, find the line that specifies DB_DATABASE and set the same name
 
 After that, paste the following to the .env file.
 
-(```)
+`
 PAYPAL_CLIENT_ID=(replace placeholder including parenthesis)
 PAYPAL_CLIENT_SECRET=(replace placeholder including parenthesis)
 PAYPAL_CURRENCY=(replace placeholder including parenthesis)
-(```)
+`
 
 You will need a PayPal Developer and Sandbox accound to get the Client ID and Secret. Make sure to replace the right operand including the parenthesis (e.g. PAYPAL_CLIENT_ID=AXLNeOPqC80ACM....). You can specifiy the PAYPAL_CURRENCY as 'USD' (without quotes).
 
