@@ -29,7 +29,10 @@ You need to have the following installad
 Navigate to the directory where you want to clone the repository, and open your terminal or command prompt.
 Run the command: 
 
-```git clone https://github.com/Dreadnought-1k2M5/laravel-store-project.git```
+```
+git clone https://github.com/Dreadnought-1k2M5/laravel-store-project.git
+
+```
  
 ## 2. Launch XAMPP and create a new Database.
 Launch the XAMPP application. Start the Apache server and MySQL database, go to http://localhost/phpmyadmin/ and create a new database called "laravel_store_db".
