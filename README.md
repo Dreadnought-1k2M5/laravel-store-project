@@ -17,6 +17,7 @@ You need to have the following installad
 2. Composer
 3. XAMPP
 4. Node.js
+5. PayPal developer and Sandbox account.
 
 # Installation
 
@@ -28,34 +29,59 @@ Run the command:
  
 ## 2. Launch XAMPP and create a new Database.
 Launch the XAMPP application. Start the Apache server and MySQL database, go to http://localhost/phpmyadmin/ and create a new database called "laravel_store_db".
+
 ## 3. Configure Environment Variables
 Navigate to the project directory. Open the ".env.example" file and copy the content. Create a new file named ".env" to paste and save.
 Configure database name:
 
-In the .env file, find the line that specifies the database name.
-Replace the placeholder value with the desired name for your database.
-Generate key:
+In the .env file, find the line that specifies DB_DATABASE and set the same name as the database name you created in the http://localhost/phpmyadmin/ (laravel_store_db).
+
+After that, paste the following to the .env file.
+
+(```)
+PAYPAL_CLIENT_ID=(replace placeholder including parenthesis)
+PAYPAL_CLIENT_SECRET=(replace placeholder including parenthesis)
+PAYPAL_CURRENCY=(replace placeholder including parenthesis)
+(```)
+
+You will need a PayPal Developer and Sandbox accound to get the Client ID and Secret. Make sure to replace the right operand including the parenthesis (e.g. PAYPAL_CLIENT_ID=AXLNeOPqC80ACM....). You can specifiy the PAYPAL_CURRENCY as 'USD' (without quotes).
 
 In the .env file, locate the line that specifies the application key.
 If the key is not already generated, run the command: php artisan key:generate.
 Copy the generated key and paste it in the appropriate line of the .env file.
 Paste PayPal client:
 
-In the .env file, find the line that specifies the PayPal client ID.
-Paste the PayPal client ID provided to you into the appropriate line of the .env file.
-NPM install and NPM run dev:
+## 4. Generate application key
+Within your project folder, open your terminal or command prompt and generate an application key for your Laravel application by entering the command:
+(```)php artisan key:generate(```)
 
-Open a new terminal or command prompt.
-Navigate to the project directory.
-Run the command: npm install to install the necessary dependencies.
-After the installation is complete, run the command: npm run dev to build the project's assets.
-PHP migrate and seed:
+## 5. Install Dependencies
+Install Node and PHP dependecies by entering command (Make sure your terminal is at the project folder.)
 
-In the terminal or command prompt, navigate to the project directory.
-Run the command: php artisan migrate to execute the database migrations.
-After the migration is complete, run the command: php artisan db:seed to seed the database with initial data if applicable.
-PHP serve:
+(```)
+cd laravel_store_project
 
-In the terminal or command prompt, navigate to the project directory.
-Run the command: php artisan serve to start the PHP development server.
-The application should now be accessible in your browser at the specified server address.
+# Install PHP dependencies
+composer install
+
+# Install JavaScript dependencies
+npm install
+(```)
+
+## 6. Migrate and Seed the Database
+Run the command execute the database migrations and seed data.
+(```)
+php artisan migrate:fresh --seed
+(```)
+
+## 7. Run Vite.
+Enter the command to run Vite. This is for tailwind and other node depenecies.
+(```)
+npm run dev
+(```)
+
+## Serve the Application
+Enter the command to run the application. Make sure you're running both Apache and MySQL in your XAMPP.
+(```)
+php artisan serve.
+(```)
