@@ -44,7 +44,9 @@ After that, paste the following to the .env file.
 
 `
 PAYPAL_CLIENT_ID=(replace placeholder including parenthesis)
+
 PAYPAL_CLIENT_SECRET=(replace placeholder including parenthesis)
+
 PAYPAL_CURRENCY=(replace placeholder including parenthesis)
 `
 
