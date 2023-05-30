@@ -31,7 +31,6 @@ Run the command:
 
 ```
 git clone https://github.com/Dreadnought-1k2M5/laravel-store-project.git
-
 ```
  
 ## 2. Launch XAMPP and create a new Database.
