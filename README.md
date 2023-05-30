@@ -1,6 +1,3 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
-
-
 # Laravel-training (Basic Online Store)
 'MidnightGaze Store' is a basic online store created in Laravel that offers both Clothing/Apparel products and Electronic/Gadget products. It includes featues such as user registration and authentication, displaying product details, searching products by name or category, adding and removing products to cart, checkout with PayPal sandbox, a basic admin page for the owner to add products, and it also offers REST API services that exposes most of the same functionality as the web interface.
 
