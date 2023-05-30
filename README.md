@@ -59,12 +59,12 @@ Paste PayPal client:
 
 ## 4. Generate application key
 Within your project folder, open your terminal or command prompt and generate an application key for your Laravel application by entering the command:
-(```)php artisan key:generate(```)
+``` php artisan key:generate ```
 
 ## 5. Install Dependencies
 Install Node and PHP dependecies by entering command (Make sure your terminal is at the project folder.)
 
-(```)
+```
 cd laravel_store_project
 
 # Install PHP dependencies
@@ -72,22 +72,22 @@ composer install
 
 # Install JavaScript dependencies
 npm install
-(```)
+```
 
 ## 6. Migrate and Seed the Database
 Run the command execute the database migrations and seed data.
-(```)
+```
 php artisan migrate:fresh --seed
-(```)
+```
 
 ## 7. Run Vite.
 Enter the command to run Vite. This is for tailwind and other node depenecies.
-(```)
+```
 npm run dev
-(```)
+```
 
 ## Serve the Application
 Enter the command to run the application. Make sure you're running both Apache and MySQL in your XAMPP.
-(```)
+```
 php artisan serve.
-(```)
+```
