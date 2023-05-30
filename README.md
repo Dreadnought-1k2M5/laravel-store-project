@@ -21,7 +21,7 @@ You need to have the following installad
 3. XAMPP
 4. Node.js
 
-You will so need a PayPal developer and Sandbox account.
+You will so need to create your own PayPal developer and Sandbox account.
 
 # Installation
 
