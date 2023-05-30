@@ -56,11 +56,9 @@ Copy the generated key and paste it in the appropriate line of the .env file.
 Paste PayPal client:
 
 ## 4. Install Dependencies
-Install Node and PHP dependecies by entering command (Make sure your terminal is at the project folder.)
+Install Node and PHP dependecies within your project folder by entering command (Make sure your terminal is at the project folder.)
 
 ```
-cd laravel_store_project
-
 # Install PHP dependencies
 composer install
 
