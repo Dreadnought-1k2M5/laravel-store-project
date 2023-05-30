@@ -82,7 +82,8 @@ npm run dev
 ```
 
 ## Serve the Application
-Enter the command to run the application. Make sure you're running both Apache and MySQL in your XAMPP.
+Open a different terminal or command prompt within your porject folder and enter the command to run the application.
 ```
 php artisan serve.
 ```
+ Make sure you're running both Apache and MySQL in your XAMPP.
