@@ -20,7 +20,8 @@ You need to have the following installad
 2. Composer
 3. XAMPP
 4. Node.js
-5. PayPal developer and Sandbox account.
+
+You will so need a PayPal developer and Sandbox account.
 
 # Installation
 
