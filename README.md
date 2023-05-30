@@ -20,17 +20,16 @@ You need to have the following installad
 
 # Installation
 
-Git Clone:
+## 1. Git Clone:
 
-1. Navigate to the directory where you want to clone the repository, and open your terminal or command prompt.
+Navigate to the directory where you want to clone the repository, and open your terminal or command prompt.
 Run the command: 
  (```) git clone https://github.com/Dreadnought-1k2M5/laravel-store-project.git (```) 
-2. Launch the XAMPP application. Start the Apache server and MySQL database, go to http://localhost/phpmyadmin/ and create a new database called "laravel_store_db".
-3. 3. Navigate to the project's root directory and install the PHP and JavaScript dependencies using Composer and npm:
-
-Navigate to the project directory.
-Create a new file named .env.
-Open the .env file in a text editor.
+ 
+## 2. Launch XAMPP and create a new Database.
+Launch the XAMPP application. Start the Apache server and MySQL database, go to http://localhost/phpmyadmin/ and create a new database called "laravel_store_db".
+## 3. Configure Environment Variables
+Navigate to the project directory. Open the ".env.example" file and copy the content. Create a new file named ".env" to paste and save.
 Configure database name:
 
 In the .env file, find the line that specifies the database name.
