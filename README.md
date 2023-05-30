@@ -42,13 +42,13 @@ In the .env file, find the line that specifies DB_DATABASE and set the same name
 
 After that, paste the following to the .env file.
 
-`
+```
 PAYPAL_CLIENT_ID=(replace placeholder including parenthesis)
 
 PAYPAL_CLIENT_SECRET=(replace placeholder including parenthesis)
 
 PAYPAL_CURRENCY=(replace placeholder including parenthesis)
-`
+```
 
 You will need a PayPal Developer and Sandbox accound to get the Client ID and Secret. Make sure to replace the right operand including the parenthesis (e.g. PAYPAL_CLIENT_ID=AXLNeOPqC80ACM....). You can specifiy the PAYPAL_CURRENCY as 'USD' (without quotes).
 
