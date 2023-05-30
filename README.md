@@ -55,11 +55,7 @@ If the key is not already generated, run the command: php artisan key:generate.
 Copy the generated key and paste it in the appropriate line of the .env file.
 Paste PayPal client:
 
-## 4. Generate application key
-Within your project folder, open your terminal or command prompt and generate an application key for your Laravel application by entering the command:
-``` php artisan key:generate ```
-
-## 5. Install Dependencies
+## 4. Install Dependencies
 Install Node and PHP dependecies by entering command (Make sure your terminal is at the project folder.)
 
 ```
@@ -71,6 +67,9 @@ composer install
 # Install JavaScript dependencies
 npm install
 ```
+## 5. Generate application key
+Within your project folder, open your terminal or command prompt and generate an application key for your Laravel application by entering the command:
+``` php artisan key:generate ```
 
 ## 6. Migrate and Seed the Database
 Run the command execute the database migrations and seed data.
